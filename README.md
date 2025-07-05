@@ -1,25 +1,89 @@
-# CountingChallenge
+# 🔍 Object Detection Using AI and Traditional CV Techniques
 
-## Task definiton
-* Count the number of items in the image and overlay masks for the same.
-* Accuracy should be > 95%
+## 👩‍💻 Author Info
 
-## Task list
-1) Achieve the task definition using any Non-AI techniques (ex. OpenCV, etc)
-2) Achieve the task definition using any AI techniques
+- **Name:** Jiya Mary Joseph  
+- **Python Version:** Python 3.12.4
 
-## Note
-* All tasks from the Task List are expected to be completed
-* Requirement files are expected to be added.
-* Colab/Kaggle notebooks can be used, but the ```ipynb``` file must be added.
-* The dataset is available [here](https://drive.google.com/drive/folders/1TuM4CgGI3WBqOHNFjuzjaEzLOH5Yw43_?usp=sharing).
-* Create a root folder with your name in the git.
-* There has to be 2 folders viz. "AI" and "Non_AI" containing solutions to the respectiv tasks within the above root folder.
+---
 
-## Steps to submit the solutions
-* Fork this repository.
-* Push the solution into the folders sepecified.
-* Raise a PR with your name as per resume to this repository from your forked repository.
-* Cleanup unwanted files by putting the path in the .gitignore.
-* No need of including the data files into GIT.
-* Write or provide the training method used for AI training purpose if any. 
+## 📘 Project Overview
+
+This project demonstrates object detection using two approaches:
+
+1. **AI-Based Approach**
+2. **Non-AI (Traditional Computer Vision)**
+
+It includes training a custom YOLO model using Roboflow, leveraging pretrained models, and applying classical image processing techniques.
+
+---
+
+## 🤖 AI-Based Approach
+
+### ✅ Approach 1: Zero-shot Detection with Natural Language Models
+
+- Used model providers that allow human-language prompts for object detection.
+- Example: [GROQ](https://groq.com/) with the model `meta-llama/llama-4-scout-17b-16e-instruct`.
+
+### ✅ Approach 2: Pretrained Lightweight YOLO
+
+- Leveraged YOLO models from [Ultralytics](https://github.com/ultralytics/ultralytics).
+- Lightweight and efficient for real-time inference.
+
+### ✅ Approach 3: Fine-tuned YOLO with Custom Dataset
+
+#### 🧪 Steps:
+
+1. **Project Setup on Roboflow**
+   - Created a new project.
+   - Uploaded and labeled images.
+   
+2. **Dataset Versioning**
+   - Performed train/val/test splits.
+   - Skipped preprocessing.
+   - Augmented images using:
+     - Flip
+     - Grayscale conversion
+     - Rotation
+
+3. **Model Training**
+   - **On Roboflow Platform**
+     - Used YOLOv11 as base model.
+     - Early stopping applied based on validation loss.
+   - **On Google Colab**
+     - Exported dataset from Roboflow.
+     - Trained using YOLOv8 from Ultralytics.
+
+4. **Model Evaluation**
+
+| Metric     | Value   |
+|------------|---------|
+| mAP        | 98%     |
+| Precision  | 92%     |
+| Recall     | 96.7%   |
+
+> ![Model Evaluation Result](image.png)
+
+---
+
+## 🧠 Non-AI (Traditional CV) Approach
+
+### 🛠️ Steps:
+
+1. Convert image to **grayscale**.
+2. Apply **Gaussian blur** to reduce noise.
+3. Use **Otsu's thresholding** with binary inversion.
+4. Apply **morphological operations** to isolate white pixels.
+5. Perform **distance transform** to compute foreground areas.
+6. Identify **sure foreground** and **sure background**.
+7. Subtract both to find the **unknown region**.
+8. Perform **marker labeling**: set background = 1, unknown = 0.
+9. Apply **Watershed Algorithm**:
+   - Treat image as a topographic surface.
+   - Boundaries marked as `-1`.
+10. Draw and count bounding boxes around detected objects.
+
+---
+
+## 📁 Project Structure
+
